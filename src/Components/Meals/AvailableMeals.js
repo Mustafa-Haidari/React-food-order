@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Card from "../UI/Card";
 import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem/MealItem";
+import { dbLink } from "../../db";
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
@@ -9,9 +10,7 @@ const AvailableMeals = () => {
   const [httpError, setHttpError] = useState();
 
   useEffect(() => {
-    fetch(
-      "https://food-order-app-5cdae-default-rtdb.asia-southeast1.firebasedatabase.app/meals.json"
-    )
+    fetch(`${dbLink}orders.json`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Something went wrong");

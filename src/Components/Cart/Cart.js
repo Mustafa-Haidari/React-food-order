@@ -4,6 +4,7 @@ import Modal from "../UI/Modal";
 import classes from "./Cart.module.css";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
+import { dbLink } from "../../db";
 
 const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
@@ -45,16 +46,13 @@ const Cart = (props) => {
 
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true);
-    await fetch(
-      "https://food-order-app-5cdae-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          user: userData,
-          orderdItems: cartCtx.items,
-        }),
-      }
-    );
+    await fetch(`${dbLink}orders.json`, {
+      method: "POST",
+      body: JSON.stringify({
+        user: userData,
+        orderdItems: cartCtx.items,
+      }),
+    });
     setIsSubmitting(false);
     setDidSubmit(true);
     cartCtx.clearCart();
