@@ -10,12 +10,13 @@ const AvailableMeals = () => {
   const [httpError, setHttpError] = useState();
 
   useEffect(() => {
-    fetch(`${dbLink}orders.json`)
+    fetch(`${dbLink}meals.json`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
         response.json().then((data) => {
+          console.log(data);
           let loadedMeals = [];
           for (const key in data) {
             loadedMeals.push({
